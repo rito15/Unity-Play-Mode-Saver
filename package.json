@@ -1,0 +1,16 @@
+{
+	"name" : "com.rito.play-mode-saver",
+	"version": "1.0.0",
+	"displayName" :"Play Mode Saver",
+	"description" :"Play Mode Saver",
+	"unity": "2019.4",
+	"dependencies": {},
+	"keywords": ["rito","unity","editorplugin"],
+	"author":
+	{
+		"name":"Rito",
+		"email":"ghdtkals15@gmail.com",
+		"url":"https://github.com/rito15"
+	},
+	"category": "Unity"
+}
