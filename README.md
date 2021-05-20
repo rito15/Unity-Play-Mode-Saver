@@ -8,6 +8,8 @@
 
 `[Window]` - `[Package Manager]` - `[+]` - `[Add package from git URL]` - `https://github.com/rito15/Unity-Play-Mode-Saver`
 
+![2021_0520_HowToUseUPM](https://user-images.githubusercontent.com/42164422/118945484-7425de00-b990-11eb-93d6-17853a4836c6.gif)
+
 <br>
 
 # Summary
