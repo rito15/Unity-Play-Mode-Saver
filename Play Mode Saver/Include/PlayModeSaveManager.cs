@@ -10,7 +10,7 @@ using System.Linq;
 // 날짜 : 2021-03-11 PM 8:05:19
 // 작성자 : Rito
 
-namespace Rito.EditorPlugins
+namespace Rito.EditorUtilities
 {
     [InitializeOnLoad]
     public class PlayModeSaveManager
@@ -123,11 +123,11 @@ namespace Rito.EditorPlugins
             foreach (var id in ids)
             {
                 // 플레이모드 종료 시 제거된 게임오브젝트들은 제외
-                var go = EditorUtility.InstanceIDToObject(id.objectID) as GameObject;
+                var go = UnityEditor.EditorUtility.InstanceIDToObject(id.objectID) as GameObject;
                 if (go == null) continue;
 
                 // 컴포넌트도 마찬가지
-                var com = EditorUtility.InstanceIDToObject(id.componentID) as Component;
+                var com = UnityEditor.EditorUtility.InstanceIDToObject(id.componentID) as Component;
                 if (com == null) continue;
 
                 // 변경사항 적용
@@ -252,7 +252,7 @@ namespace Rito.EditorPlugins
             // PMS가 플레이모드 내에서 제거됐다면, 에디터모드에 돌아와서 정말로 제거해주기
             if (pmsDict.ContainsKey(cid) == false)
             {
-                var tmpPms = EditorUtility.InstanceIDToObject(cid) as PlayModeSaver;
+                var tmpPms = UnityEditor.EditorUtility.InstanceIDToObject(cid) as Rito.EditorUtilities.PlayModeSaver;
                 if (tmpPms)
                     UnityEngine.Object.DestroyImmediate(tmpPms);
 
@@ -260,11 +260,11 @@ namespace Rito.EditorPlugins
             }
 
             // 게임오브젝트가 플레이모드에서 잠깐 생성된 녀석이면 무시하기
-            var go = EditorUtility.InstanceIDToObject(gid) as GameObject;
+            var go = UnityEditor.EditorUtility.InstanceIDToObject(gid) as GameObject;
             if (go == null) return;
 
             // PMS가 플레이모드에서 잠깐 생성한 녀석이라면, 에디터모드에 돌아왔을때 생성해서 넣어주기
-            var pms = EditorUtility.InstanceIDToObject(cid) as PlayModeSaver;
+            var pms = UnityEditor.EditorUtility.InstanceIDToObject(cid) as Rito.EditorUtilities.PlayModeSaver;
             if (pms == null)
             {
                 pms = go.AddComponent<PlayModeSaver>();

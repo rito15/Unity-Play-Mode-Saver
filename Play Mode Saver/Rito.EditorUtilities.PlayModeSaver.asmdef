@@ -1,5 +1,5 @@
 {
-    "name": "Rito.EditorPlugins.PlayModeSaver",
+    "name": "Rito.EditorUtilities.PlayModeSaver",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

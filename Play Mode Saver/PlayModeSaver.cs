@@ -6,7 +6,7 @@ using UnityEngine;
 // 날짜 : 2021-03-11 PM 8:05:03
 // 작성자 : Rito
 
-namespace Rito.EditorPlugins
+namespace Rito.EditorUtilities
 {
     [ExecuteInEditMode]
     [DisallowMultipleComponent]

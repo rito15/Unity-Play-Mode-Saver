@@ -14,7 +14,7 @@ using UnityEngine.UIElements;
 // 날짜 : 2021-03-12 AM 3:51:29
 // 작성자 : Rito
 
-namespace Rito.EditorPlugins
+namespace Rito.EditorUtilities
 {
     [CustomEditor(typeof(PlayModeSaver))]
     public class PlayModeSaverEditor : UnityEditor.Editor
