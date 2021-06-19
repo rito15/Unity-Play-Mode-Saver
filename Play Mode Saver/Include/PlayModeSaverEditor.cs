@@ -1,13 +1,7 @@
 #if UNITY_EDITOR
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.UIElements;
 
 #pragma warning disable CS0618
 
@@ -16,7 +10,7 @@ using UnityEngine.UIElements;
 
 namespace Rito.EditorUtilities
 {
-    [CustomEditor(typeof(PlayModeSaver))]
+    [UnityEditor.CustomEditor(typeof(Rito.EditorUtilities.PlayModeSaver))]
     public class PlayModeSaverEditor : UnityEditor.Editor
     {
         /***********************************************************************
