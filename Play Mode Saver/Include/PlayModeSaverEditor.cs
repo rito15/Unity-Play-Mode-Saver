@@ -87,6 +87,10 @@ namespace Rito.EditorUtilities
         private void NextSpace(float value)
         {
             GUILayout.Space(value);
+
+            //for (int i = 0; i < value / 8; i++)
+            //    EditorGUILayout.Space();
+
             currentY += value;
         }
 
@@ -109,6 +113,7 @@ namespace Rito.EditorUtilities
         public override void OnInspectorGUI()
         {
             currentViewWidth = EditorGUIUtility.currentViewWidth - 14f;
+
             contentWidth = currentViewWidth - 26f;
             halfContentWidth = contentWidth * 0.5f;
 
@@ -116,11 +121,17 @@ namespace Rito.EditorUtilities
             ObjectWidthOption = GUILayout.Width(contentWidth - MinusButtonWidth);
             ObjectMinusButtonWidthOption = GUILayout.Width(MinusButtonWidth);
 
-            // -
             Color oldBgColor = GUI.backgroundColor;
             Color oldcntColor = GUI.contentColor;
 
-            currentY = 0f; // 수동 Y 높이 0으로 초기화
+#if UNITY_2019_1_OR_NEWER
+            currentY = 0f; // 수동 Y 높이 초기화
+#else
+            EditorGUILayout.Space();
+            Rect lastRect = GUILayoutUtility.GetLastRect();
+            currentY = lastRect.y + 5f;
+#endif
+
             NextSpace(8f);
 
             DrawOptions();
@@ -139,11 +150,11 @@ namespace Rito.EditorUtilities
             GUI.contentColor = oldcntColor;
         }
 
-        #endregion
+#endregion
         /***********************************************************************
         *                               Draw Methods
         ***********************************************************************/
-        #region .
+#region .
         private void DrawOptions()
         {
             using (var check = new EditorGUI.ChangeCheckScope())
@@ -221,7 +232,7 @@ namespace Rito.EditorUtilities
                 foldoutC.Set(DrawFoldoutHeaderBox(currentY, 21f * pms._targetList.Count, foldoutC, "Components",
                     Color.black, HeaderColorC, Color.black));
 
-                if(check.changed)
+                if (check.changed)
                     foldoutA.SaveToEditorPref();
             }
 
@@ -247,11 +258,11 @@ namespace Rito.EditorUtilities
             }
         }
 
-        #endregion
+#endregion
         /***********************************************************************
         *                               Private Methods
         ***********************************************************************/
-        #region .
+#region .
 
         // boxY : 그려질 Y 위치
         // boxH : 헤더를 제외한, 순수한 박스의 높이
@@ -259,7 +270,14 @@ namespace Rito.EditorUtilities
         private bool DrawFoldoutHeaderBox(float boxY, float boxH, bool foldout, string titleText,
             in Color boxColor, in Color headerColor, in Color titleColor)
         {
-            const float boxX = 14f;
+
+            const float boxX =
+#if UNITY_2019_1_OR_NEWER
+                14f;
+#else
+                8f;
+#endif
+
             const float padding = 4f; // 박스 내에서 헤더와의 여유 간격
 
             const float marginRight = 1f; // 박스의 우측 끝과 뷰의 우측 끝 사이 간격
@@ -271,13 +289,17 @@ namespace Rito.EditorUtilities
             float headerAreaH = headerH + padding * 2f;
             float headerY = boxY + padding;
 
-            float boxW    = currentViewWidth - boxX - marginRight;
+            float boxW = currentViewWidth - boxX - marginRight;
             float headerW = currentViewWidth - headerX - padding - marginRight;
 
             // 펼쳤을 때만 박스 보여주기
             boxH = foldout ? (boxH + headerAreaH) : (headerAreaH); // 헤더 + 박스 전체 높이
 
+#if UNITY_2019_1_OR_NEWER
             GUI.backgroundColor = boxColor;
+#else
+            GUI.backgroundColor = Color.white;
+#endif
             GUI.Box(new Rect(boxX, boxY, boxW, boxH), ""); // Box
 
             GUI.backgroundColor = headerColor;
@@ -285,14 +307,19 @@ namespace Rito.EditorUtilities
             GUI.Box(new Rect(headerX, headerY, headerW, headerH), ""); // Header
 
             foldout = EditorGUI.Foldout(new Rect(headerX + 16f, headerY, headerW, headerH),
-                foldout, titleText, true, EditorStyles.boldLabel);
+                foldout, titleText, true
+
+#if UNITY_2019_1_OR_NEWER
+                , EditorStyles.boldLabel
+#endif
+            );
 
             // 수동 컨트롤을 그려낸 만큼 공백 삽입
             NextSpace(headerH + padding);
 
             return foldout;
         }
-        #endregion
+#endregion
     }
 }
 
